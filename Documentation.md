@@ -40,19 +40,44 @@ Now go back to the host pc and dont stop the virtual machine and to log analatic
 create data collection rule and it will ask for data collection endpoint so create it and the important part in data collection rule is this part and remember the table name as it will be used later:  <br/>
 <img src="https://i.imgur.com/M2g51jw.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
  <br />
-open the link and then copy the powershell code and paste it in two pieces like $table part and then the funciton in azure cli like this and make sure to put the name of the table exactly and then execute the invoke function with also changing the parameter like workspace, subscription id etc<br/>
-<img src="https://i.imgur.com/vR2ep8o.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+open the link https://learn.microsoft.com/en-us/azure/azure-monitor/logs/create-custom-table?tabs=azure-powershell-1%2Cazure-portal-2%2Cazure-portal-3 and then copy the powershell code and paste it in two pieces like $table part and then the funciton in azure cli like this and make sure to put the name of the table exactly and then execute the invoke function with also changing the parameter like workspace, subscription id etc<br/>
+<img src="https://i.imgur.com/tGYuQN9.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
  <br />
 Now if successful then go to log analatics workspace and to table and finding the table that was created or not<br/>
 <img src="https://i.imgur.com/k1RTvnY.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+  <br />
+After sometime logs will come in and can be seen in<br/>
+<img src="https://i.imgur.com/z969ilG.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+  <br />
+Now setup azure sentinel and then go to the workbook part and then to the new query and change the table name<br/>
+AllenCustomSecurity3_CL
+| extend d = parse_csv(RawData)
+| extend Latitude = d[0]
+| extend latitude = substring(Latitude, indexof(Latitude, ":") + 1)
+| extend Longitude = d[1]
+| extend longitude = substring(Longitude, indexof(Longitude, ":") + 1)
+| extend Destinationhost = d[2]
+| extend destinationhost = substring(Destinationhost, indexof(Destinationhost, ":") + 1)
+| extend Username = d[3]
+| extend username = substring(Username, indexof(Username, ":") + 1)
+| extend Sourcehost = d[4]
+| extend sourcehost = substring(Sourcehost, indexof(Sourcehost, ":") + 1)
+| extend State = d[5]
+| extend state = substring(State, indexof(State, ":") + 1)
+| extend Country = d[6]
+| extend country = substring(Country, indexof(Country, ":") + 1)
+| extend Label = d[7]
+| extend label = substring(Label, indexof(Label, ":") + 1)
+| extend Timestamp = d[8]
+| extend timestamp = substring(Timestamp, indexof(Timestamp, ":") + 1)
+| project latitude,longitude,destinationhost,username,sourcehost,state,country,label,timestamp
+| summarize event_count=count() by destinationhost, latitude, longitude, country, label, sourcehost
+<img src="https://i.imgur.com/2rHr8hvl.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+  <br />
+apply and observe attacker pop up<br/>
+<img src="https://i.imgur.com/0mDf2Bfl.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+  <br />
+save it<br/>
+<img src="https://i.imgur.com/wXPO73ol.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 
-<!--
- ```diff
-- text in red
-+ text in green
-! text in orange
-# text in gray
-@@ text in purple (and bold)@@
-```
---!>
