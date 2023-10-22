@@ -52,7 +52,7 @@ The primary objectives of this project are to:
 
 ## Getting Started
 
-For a comprehensive guide on setting up and running this project, please refer to the [Getting Started](/Documentation/Getting-Started.md) document in the documentation folder.
+For a comprehensive guide on setting up and running this project, please refer to the [Getting Started](Documentation.md) document in the documentation folder.
 
 ## License
 
