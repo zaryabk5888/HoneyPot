@@ -18,7 +18,7 @@ Architecture: <br/>
 <br />
 <br />
 Create Virtual Machine on Azure Cloud:  <br/>
-<img src="https://i.imgur.com/vR2ep8o.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://imgur.com/w5kC6e8.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 Allow traffic from all ports and protocols by doing this: <br/>
